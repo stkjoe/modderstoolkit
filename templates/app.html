@@ -1,3 +1,14 @@
 {% extends "layout_app.html" %}
 {% block content %}
+<div class="tab">
+    <button class="tablinks" onclick="openCity(event, 'Warnings')">Warnings</button>
+    <button class="tablinks" onclick="openCity(event, 'Info')">Info</button>
+</div>
+
+<!-- Tab content -->
+<div id="Warnings" class="tabcontent">
+</div>
+
+<div id="Info" class="tabcontent">
+</div>
 {% endblock %}
