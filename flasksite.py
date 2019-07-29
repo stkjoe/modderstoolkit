@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -10,9 +11,9 @@ def home():
 def about():
     return render_template("about.html")
 
-@app.route("/modmymap")
+@app.route("/app")
 def modmymap():
-    return "<h1>Mod My Map</h1>"
+    return render_template("app.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
