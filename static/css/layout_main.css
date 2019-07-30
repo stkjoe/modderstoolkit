@@ -1,3 +1,7 @@
+html, body {
+	height: 100%;
+}
+
 header {
 	background-color: #061539;
 	color: #ffffff;
@@ -72,7 +76,7 @@ nav ul li.current, nav ul li.current a {
 main {
 	width: 80%;
 	max-width: 900px;
-	height: 84.7vh;
+	height: 100%;
 	margin: auto;
 	padding: 10px 20px;
 	background-color: #7887ab;
@@ -89,6 +93,8 @@ main section h3 {
 }
 
 footer {
+	height: 20%;
+	max-height: 50px;
 	background-color: #061539;
 	color: #ffffff;
 	width: 100%;
