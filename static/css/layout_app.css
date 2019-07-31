@@ -84,15 +84,28 @@ select {
 .displayinfo {
     height: calc(100% - 40px);
     margin: 20px;
-    background-color: white;
+    background-color: #111111;
+    color: white;
     overflow-y: scroll;
 }
 
 .displaywarning {
     height: calc(50% - 30px);
     margin: 20px;
-    background-color: white;
+    background-color: #111111;
+    color: white;
     overflow-y: scroll;
+}
+
+.infobox {
+    padding: 0px 10px;
+}
+
+.infobox span{
+    color: #EEEEEE;
+    display: block;
+    font-size: 12px;
+    height: 16px;
 }
 
 #dragdrop {
@@ -104,7 +117,7 @@ select {
     height: calc(100%);
     width: calc(100%);
     opacity: 0.8;
-    z-index: 1;
+    z-index: -1;
     text-align: center;
     vertical-align: middle;
     line-height: 4000%;
@@ -112,4 +125,58 @@ select {
 
 #dragdrop h2 {
     vertical-align: middle;
+}
+
+/* Remove default bullets */
+ul, #myUL {
+  list-style-type: none;
+}
+
+/* Remove margins and padding from the parent ul */
+#myUL {
+  margin: 0;
+  padding: 10px;
+}
+
+/* Style the caret/arrow */
+.caret {
+  cursor: pointer;
+  user-select: none; /* Prevent text selection */
+  font-size: 12px;
+}
+
+/* Create the caret/arrow with a unicode, and style it */
+.caret::before {
+  content: "\25B6";
+  color: white;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+.caret-down::before {
+  transform: rotate(90deg);
+}
+
+/* Hide the nested list */
+.nested {
+    display: none;
+    font-size: 12px;
+}
+
+/* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+.activetree {
+  display: block;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table td {
+    border: 1px solid black;
+    height: 50px;
+    width: 100%;
+    font-size: 12px;
 }

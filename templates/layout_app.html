@@ -3,9 +3,7 @@
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/layout_main.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/layout_app.css') }}">
-        <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+        {% block header %}{% endblock header %}
         {% if title %}
             <title>{{ title }} | Modder's Toolkit</title>
         {% else %}

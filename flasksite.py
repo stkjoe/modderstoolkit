@@ -2,6 +2,7 @@ import os
 import urllib.request
 from flask import Flask, flash, request, redirect, render_template
 from werkzeug.utils import secure_filename
+#from modmymap.checker import ModMyMap
 
 app = Flask(__name__)
 
@@ -25,7 +26,13 @@ def send_file():
     fileob = request.files["file2upload"]
     filename = secure_filename(fileob.filename)
     save_path = "{}/{}".format(app.config["UPLOAD_FOLDER"], filename)
+    if filename.endswith(".osz"):
+        #Valid .osz file.
+        obj = ModMyMap()
+        obj.parseFromPath(app.config["UPLOAD_FOLDER"])
+        print(obj.getProblems())
     fileob.save(save_path)
+    return "successful_upload"
 
 if __name__ == "__main__":
     app.run(debug=True)
