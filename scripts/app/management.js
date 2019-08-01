@@ -29,9 +29,7 @@ var beatmapsetManagement = (function () {
     pub.settingsChange = function() {
         var target = document.getElementById("diffs");
         var settings = sessionStorage.getItem(beatmapsetManagement.currentBeatmapset + "-info");
-        console.log(settings);
         settings = JSON.parse(settings);
-        console.log(settings);
         var detdiff = document.getElementById("diffsdetect").value;
         var snap3 = document.getElementById("snap3").value;
         if (snap3 == "2") {
@@ -106,7 +104,6 @@ var beatmapsetManagement = (function () {
             settings[k] = {"diff": diff, "snap3": snap3, "snap4": snap4};
         });
         settings = JSON.stringify(settings);
-        console.log(settings);
         sessionStorage.setItem(name + "-info", settings);
 
         // reset cell colours
@@ -128,7 +125,6 @@ var beatmapsetManagement = (function () {
         // get clicked beatmapset
         var text = sessionStorage.getItem(name);
         var returnedJSON = JSON.parse(text);
-        var i;
 
         // populate info
         // start by addings diffs
@@ -139,7 +135,6 @@ var beatmapsetManagement = (function () {
         target.addEventListener("change", function() {
             // Grab settings from sessionStorage
             var settings = JSON.parse(sessionStorage.getItem(name + "-info"))[target.value];
-            console.log(settings);
             document.getElementById("diffsdetect").value = settings["diff"];
             var snap4 = settings["snap4"];
             document.getElementById("snap4label").innerHTML = "1/" + snap4.toString();
@@ -162,6 +157,14 @@ var beatmapsetManagement = (function () {
             }
             document.getElementById("snap3").value = snap3;
 
+            // Populate Info tab
+            // Firstly, grab it from
+            var info = JSON.parse(sessionStorage.getItem(name))["diffs"][target.value]["info"];
+            var info_str = "";
+            Object.keys(info).forEach(function(k){
+                info_str = info_str + ("<span>" + k + ": " + info[k] + "</span>");
+            });
+            document.getElementById("beatmapinfo").innerHTML = info_str;
         });
         // Change to hardest diff and evoke change
         target.selectedIndex = target.length - 1;
@@ -171,8 +174,6 @@ var beatmapsetManagement = (function () {
         document.getElementsByClassName("settings")[0].style.pointerEvents = "auto";
         document.getElementsByClassName("settings")[0].style.opacity = "1";
         beatmapsetManagement.currentBeatmapset = name;
-
-        // add the info part to the info tab
     };
 
     return pub;

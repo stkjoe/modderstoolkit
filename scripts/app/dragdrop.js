@@ -1,6 +1,4 @@
 function dropHandler(ev) {
-	// delete this when deploying
-	sessionStorage.clear();
 
 	ev.preventDefault();
 
@@ -9,7 +7,7 @@ function dropHandler(ev) {
 			if (ev.dataTransfer.items[i].kind === 'file') {
 				var file = ev.dataTransfer.items[i].getAsFile();
 				var isOsz = file.name.endsWith(".osz");
-				if (isOsz == true) {
+				if (file.name.endsWith(".osz")) {
 					// File is a .osz file. Continue onwards.
 					var returnedJSON = modMyMap(file);
 					sessionStorage.setItem(file.name, returnedJSON);
