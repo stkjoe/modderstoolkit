@@ -1,5 +1,7 @@
 function dropHandler(ev) {
 
+	sessionStorage.clear();
+
 	ev.preventDefault();
 
 	if (ev.dataTransfer.items) {
@@ -9,10 +11,8 @@ function dropHandler(ev) {
 				var isOsz = file.name.endsWith(".osz");
 				if (isOsz == true) {
 					// File is a .osz file. Continue onwards.
-					/*
-					var returnedJSON = modmymap.results;
+					var returnedJSON = modMyMap(file);
 					sessionStorage.setItem(file.name, returnedJSON);
-					*/
 				}
 			}
 		}
