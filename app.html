@@ -10,6 +10,7 @@
         <script type="text/javascript" src="scripts/app/changetab.js"></script>
         <script type="text/javascript" src="scripts/app/dragdrop.js"></script>
         <script type="text/javascript" src="scripts/app/treeview.js"></script>
+        <script type="text/javascript" src="scripts/app/management.js"></script>
         <!-- Javascript for the actual check -->
         <script type="text/javascript" src="scripts/app/modmymap.js"></script>
         <script type="text/javascript" src="scripts/app/jszip.js"></script>
@@ -61,7 +62,7 @@
                     <ul>
                         <li>Selected Difficulty:</li>
                         <li>
-                            <select name="difficulty">
+                            <select name="difficulty" id="diffs">
                                 <!-- Add difficulties here per beatmapset -->
                                 <option value="1">Easy</option>
                                 <!-- Add difficulties here per beatmapset -->
@@ -97,7 +98,7 @@
 
                     <div id="WarningWindow" class="displaywarning">
                         <!-- Delete after -->
-                        <ul id="myUL">
+                        <ul id="problemtree">
                             <li><span class="treeroot">Unrankables</span>
                                 <ul class="nested">
                                     <li><span class="treeroot">General</span>
@@ -121,7 +122,7 @@
 
                     <div id="WarningWindow2" class="displaywarning">
                         <!-- Delete after -->
-                        <p class="infobox">
+                        <p class="infobox" id="probleminfo">
                             <span>badbg.jpg</span>
                         </p>
                         <!-- Delete after -->
@@ -130,7 +131,7 @@
                 <div id="Info" class="tabcontent">
                     <div id="InfoWindow" class="displayinfo">
                         <!-- Delete after -->
-                        <p class="infobox">
+                        <p class="infobox" id="beatmapinfo">
                             <span>Insane</span>
                             <span>Mode: Standard</span>
                             <span>Creator: Rizen</span>

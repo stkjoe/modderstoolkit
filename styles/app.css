@@ -128,12 +128,12 @@ select {
 }
 
 /* Remove default bullets */
-ul, #myUL {
+ul, #problemtree {
   list-style-type: none;
 }
 
 /* Remove margins and padding from the parent ul */
-#myUL {
+#problemtree {
   margin: 0;
   padding: 10px;
 }
