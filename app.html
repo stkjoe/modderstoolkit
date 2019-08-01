@@ -54,11 +54,11 @@
 
                         <!-- Delete after -->
                         <li id="snap4label">1/4</li>
-                        <li><input type="range" min="1" max="5" step="1" value="1" class="slider" id="snap4"></input></li>
+                        <li><input type="range" min="1" max="5" step="1" value="1" class="slider" id="snap4" oninput="beatmapsetManagement.sliderChange('snap4')"></input></li>
                         <li id="snap3label">1/3</li>
-                        <li><input type="range" min="1" max="4" step="1" value="1" class="slider" id="snap3"></input></li>
+                        <li><input type="range" min="1" max="4" step="1" value="1" class="slider" id="snap3" oninput="beatmapsetManagement.sliderChange('snap3')"></input></li>
                         <!-- Delete after -->
-                        <li><button type="button" onclick=beatmapsetManagement.settingsChange()>Apply</button></li>
+                        <li><button type="button" onclick="beatmapsetManagement.settingsChange()"">Apply</button></li>
                     </ul>
                 </div>
             </div>

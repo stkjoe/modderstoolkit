@@ -3,12 +3,34 @@ var beatmapsetManagement = (function () {
 
     pub.currentBeatmapset = "";
 
+    pub.sliderChange = function(value) {
+        var target = document.getElementById(value + "label");
+        var snap = document.getElementById(value).value;
+        if (value == "snap3") {
+            if (snap == "2") {
+                snap = "3";
+            } else if (snap == "3") {
+                snap = "6";
+            } else if (snap == "4") {
+                snap = "12";
+            }
+        } else if (value == "snap4") {
+            if (snap == "3") {
+                snap = "4";
+            } else if (snap == "4") {
+                snap = "8";
+            } else if (snap == "5") {
+                snap = "16";
+            }
+        }
+        target.innerHTML = "1/" + snap.toString();
+    };
+
     pub.settingsChange = function() {
         var target = document.getElementById("diffs");
         var settings = sessionStorage.getItem(beatmapsetManagement.currentBeatmapset + "-info");
         console.log(settings);
         settings = JSON.parse(settings);
-        console.log(snap4.value);
         console.log(settings);
         var detdiff = document.getElementById("diffsdetect").value;
         var snap3 = document.getElementById("snap3").value;
@@ -19,7 +41,7 @@ var beatmapsetManagement = (function () {
         } else if (snap3 == "4") {
             snap3 = "12";
         }
-        var snap3 = document.getElementById("snap4").value;
+        var snap4 = document.getElementById("snap4").value;
         if (snap4 == "3") {
             snap4 = "4";
         } else if (snap4 == "4") {
@@ -118,16 +140,6 @@ var beatmapsetManagement = (function () {
             var settings = JSON.parse(sessionStorage.getItem(name + "-info"))[target.value];
             console.log(settings);
             document.getElementById("diffsdetect").value = settings["diff"];
-            var snap3 = settings["snap3"];
-            document.getElementById("snap3label").innerHTML = "1/" + snap3.toString();
-            if (snap3 == "3") {
-                snap3 = "2";
-            } else if (snap3 == "6") {
-                snap3 = "3";
-            } else if (snap3 == "12") {
-                snap3 = "4";
-            }
-            document.getElementById("snap3").value = snap3;
             var snap4 = settings["snap4"];
             document.getElementById("snap4label").innerHTML = "1/" + snap4.toString();
             if (snap4 == "4") {
@@ -138,6 +150,17 @@ var beatmapsetManagement = (function () {
                 snap4 = "5";
             }
             document.getElementById("snap4").value = snap4;
+            var snap3 = settings["snap3"];
+            document.getElementById("snap3label").innerHTML = "1/" + snap3.toString();
+            if (snap3 == "3") {
+                snap3 = "2";
+            } else if (snap3 == "6") {
+                snap3 = "3";
+            } else if (snap3 == "12") {
+                snap3 = "4";
+            }
+            document.getElementById("snap3").value = snap3;
+
         });
         // Change to hardest diff and evoke change
         target.selectedIndex = target.length - 1;
@@ -146,6 +169,8 @@ var beatmapsetManagement = (function () {
         // reset current settings values
         document.getElementsByClassName("settings")[0].style.pointerEvents = "auto";
         beatmapsetManagement.currentBeatmapset = name;
+
+        // add the info part to the info tab
     };
 
     return pub;

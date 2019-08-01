@@ -1,5 +1,5 @@
 function dropHandler(ev) {
-
+	// delete this when deploying
 	sessionStorage.clear();
 
 	ev.preventDefault();
