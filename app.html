@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/app.css">
+        <script type="text/javascript" src="scripts/app/changetab.js"></script>
+        <script type="text/javascript" src="scripts/app/dragdrop.js"></script>
+        <script type="text/javascript" src="scripts/app/treeview.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <title>App | Modder's Toolkit</title>
+    </head>
+    <body>
+        <header>
+            <h1>Modder's Toolkit</h1>
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="app.html">App</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <div id="dragdrop"><h2>Begin by dropping a file here.</h2></div>
+            <div class="sidebar">
+                <div class="beatmapsets">
+                    <!-- Delete after -->
+                    <table>
+                        <tr>
+                            <td>Beatmapset 1</td>
+                            <td>x</td>
+                        </tr>
+                        <tr>
+                            <td>Beatmapset 2</td>
+                            <td>x</td>
+                        </tr>
+                        <tr>
+                            <td>Beatmapset 3</td>
+                            <td>x</td>
+                        </tr>
+                        <tr>
+                            <td>Beatmapset 4</td>
+                            <td>x</td>
+                        </tr>
+                        <tr>
+                            <td>Beatmapset 5</td>
+                            <td>x</td>
+                        </tr>
+                    </table>
+                    <!-- Delete after -->
+                </div>
+                <div class="settings">
+                    <h2>Settings</h2>
+                    <ul>
+                        <li>Selected Difficulty:</li>
+                        <li>
+                            <select name="difficulty">
+                                <!-- Add difficulties here per beatmapset -->
+                                <option value="1">Easy</option>
+                                <!-- Add difficulties here per beatmapset -->
+                            </select></li>
+                        <li>Detected Difficulty:</li>
+                        <li>
+                            <select name="difficulty">
+                                <option value="easy">Easy</option>
+                                <option value="normal">Normal</option>
+                                <option value="hard">Hard</option>
+                                <option value="insane">Insane</option>
+                                <option value="expert">Expert</option>
+                            </select></li>
+
+                        <!-- Delete after -->
+                        <li>1/4</li>
+                        <li><input type="range" min="1" max="16" value="2" class="slider" id="snap4"></input></li>
+                        <li>1/3</li>
+                        <li><input type="range" min="1" max="12" value="2" class="slider" id="snap4"></input></li>
+                        <!-- Delete after -->
+                        <li><button type="button">Apply</button></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mainwindow">
+                <div class="tab">
+                    <button class="tablinks" onclick="changeTab(event, 'Warnings')">Warnings</button>
+                    <button class="tablinks" onclick="changeTab(event, 'Info')">Info</button>
+                </div>
+
+                <!-- Tab content -->
+                <div id="Warnings" class="tabcontent">
+
+                    <div id="WarningWindow" class="displaywarning">
+                        <!-- Delete after -->
+                        <ul id="myUL">
+                            <li><span class="caret">Unrankables</span>
+                                <ul class="nested">
+                                    <li><span class="caret">General</span>
+                                        <ul class="nested">
+                                            <li>Missing Background</li>
+                                            <li>MP3 outside of bitrate range</li>
+                                        </ul>
+                                    <li><span class="caret">Tragic Love Extra</span>
+                                        <ul class="nested">
+                                            <li>Unsnapped Objects</li>
+                                        </ul>
+                                    <li><span class="caret">Insane</span>
+                                        <ul class="nested">
+                                            <li>Muted Clickable Objects</li>
+                                        </ul>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- Delete after -->
+                    </div>
+
+                    <div id="WarningWindow2" class="displaywarning">
+                        <!-- Delete after -->
+                        <p class="infobox">
+                            <span>badbg.jpg</span>
+                        </p>
+                        <!-- Delete after -->
+                    </div>
+                </div>
+                <div id="Info" class="tabcontent">
+                    <div id="InfoWindow" class="displayinfo">
+                        <!-- Delete after -->
+                        <p class="infobox">
+                            <span>Insane</span>
+                            <span>Mode: Standard</span>
+                            <span>Creator: Rizen</span>
+                            <span></span>
+                            <span>[Metadata]</span>
+                            <span>Artist: cillia</span>
+                            <span>Artist unicode: シリア</span>
+                            <span>Title: Donor Song</span>
+                            <span>Title unicode: ドナーソング</span>
+                            <span>Source:</span>
+                            <span>Tags: kyaami vocaloid vocaloid4 VY1V4 cover moph pishifat</span>
+                            <span></span>
+                            <span>[Settings]</span>
+                            <span>HP: 5 CS: 5 AR: 9 OD: 7.5 SV: 1.6 STR: 1</span>
+                            <span></span>
+                            <span>[Other]</span>
+                            <span>Objects count: 225</span>
+                            <span>Total drain time (min:sec:ms): 01:30:833</span>
+                            <span>Average rhythm density (obj/sec): 2.48</span>
+                            <span></span>
+                            <span>[Star raitings]</span>
+                            <span>Total: 4.25 Aim: 2.19 Speed: 1.91 Performance points: 99.95</span>
+                            <span></span>
+                            <span>[Elements]</span>
+                            <span>Combo colors: Yes</span>
+                            <span>Slider border: No</span>
+                            <span>Slider track: No</span>
+                            <span>Spinner: Yes</span>
+                            <span>Storyboard in .osu: No</span>
+                            <span>Video: No</span>
+                        </p>
+                        <!-- Delete after -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
