@@ -2,7 +2,7 @@ var beatmapsetManagement = (function () {
     var pub = {};
 
     pub.add = function(name) {
-
+        pub.switch(name);
     };
 
     pub.switch = function(name) {

@@ -13,7 +13,7 @@ function dropHandler(ev) {
 					// File is a .osz file. Continue onwards.
 					var returnedJSON = modMyMap(file);
 					sessionStorage.setItem(file.name, returnedJSON);
-					beatmapsetManagement.switch(file.name);
+					beatmapsetManagement.add(file.name);
 				}
 			}
 		}
