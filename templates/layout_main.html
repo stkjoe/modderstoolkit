@@ -3,11 +3,7 @@
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/layout_main.css') }}">
-        {% if title %}
-            <title>{{ title }} | Modder's Toolkit</title>
-        {% else %}
-            <title>Modder's Toolkit</title>
-        {% endif %}
+        <title>{% block title %}{% endblock title %} | Modder's Toolkit</title>
     </head>
     <body>
         <header>

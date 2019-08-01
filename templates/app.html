@@ -1,6 +1,8 @@
 {% extends "layout_app.html" %}
+{% block title %}App{% endblock title %}
 {% block header %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/layout_app.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/app/changetab.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/app/dragdrop.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/app/treeview.js') }}"></script>
