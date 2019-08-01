@@ -187,3 +187,16 @@ table td {
 td {
     padding: 0px 10px;
 }
+
+#beatmapsets tr {
+    cursor: pointer;
+}
+
+#beatmapsets tr td:last-child {
+    opacity: 0.2;
+    font-size: 18px;
+}
+
+#beatmapsets tr td:last-child:hover {
+    opacity: 1;
+}
