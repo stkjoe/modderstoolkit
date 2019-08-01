@@ -192,6 +192,11 @@ td {
     cursor: pointer;
 }
 
+#beatmapsets tr.active {
+    background-color: #DDDDDD;
+    color: #000000;
+}
+
 #beatmapsets tr td:last-child {
     opacity: 0.2;
     font-size: 18px;

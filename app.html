@@ -32,24 +32,19 @@
             </div>
             <div class="sidebar">
                 <div class="beatmapsets">
-                    <!-- Delete after -->
                     <table id="beatmapsets">
                     </table>
-                    <!-- Delete after -->
                 </div>
                 <div class="settings">
-                    <h2>Settings</h2>
+                    <h3>Settings</h3>
                     <ul>
                         <li>Selected Difficulty:</li>
                         <li>
                             <select name="difficulty" id="diffs">
-                                <!-- Add difficulties here per beatmapset -->
-                                <option value="1">Easy</option>
-                                <!-- Add difficulties here per beatmapset -->
                             </select></li>
                         <li>Detected Difficulty:</li>
                         <li>
-                            <select name="difficulty">
+                            <select name="difficulty" id="diffsdetect">
                                 <option value="easy">Easy</option>
                                 <option value="normal">Normal</option>
                                 <option value="hard">Hard</option>
@@ -58,12 +53,12 @@
                             </select></li>
 
                         <!-- Delete after -->
-                        <li>1/4</li>
-                        <li><input type="range" min="1" max="16" value="2" class="slider" id="snap4"></input></li>
-                        <li>1/3</li>
-                        <li><input type="range" min="1" max="12" value="2" class="slider" id="snap4"></input></li>
+                        <li id="snap4label">1/4</li>
+                        <li><input type="range" min="1" max="5" step="1" value="1" class="slider" id="snap4"></input></li>
+                        <li id="snap3label">1/3</li>
+                        <li><input type="range" min="1" max="4" step="1" value="1" class="slider" id="snap3"></input></li>
                         <!-- Delete after -->
-                        <li><button type="button">Apply</button></li>
+                        <li><button type="button" onclick=beatmapsetManagement.settingsChange()>Apply</button></li>
                     </ul>
                 </div>
             </div>
