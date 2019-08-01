@@ -21,8 +21,10 @@
                 </ul>
             </nav>
         </header>
-        <main>
-            <div id="dragdrop"><h2>Begin by dropping a file here.</h2></div>
+        <main ondragover="dragOverHandler(event);">
+            <div id="dragdrop" ondrop="dropHandler(event);" ondragleave="dragLeaveHandler(event);">
+                <p>Drag one or more .osz files here</p>
+            </div>
             <div class="sidebar">
                 <div class="beatmapsets">
                     <!-- Delete after -->
@@ -92,18 +94,18 @@
                     <div id="WarningWindow" class="displaywarning">
                         <!-- Delete after -->
                         <ul id="myUL">
-                            <li><span class="caret">Unrankables</span>
+                            <li><span class="treeroot">Unrankables</span>
                                 <ul class="nested">
-                                    <li><span class="caret">General</span>
+                                    <li><span class="treeroot">General</span>
                                         <ul class="nested">
                                             <li>Missing Background</li>
                                             <li>MP3 outside of bitrate range</li>
                                         </ul>
-                                    <li><span class="caret">Tragic Love Extra</span>
+                                    <li><span class="treeroot">Tragic Love Extra</span>
                                         <ul class="nested">
                                             <li>Unsnapped Objects</li>
                                         </ul>
-                                    <li><span class="caret">Insane</span>
+                                    <li><span class="treeroot">Insane</span>
                                         <ul class="nested">
                                             <li>Muted Clickable Objects</li>
                                         </ul>
