@@ -75,6 +75,7 @@ var beatmapsetManagement = (function () {
             newCell.remove();
             if (beatmapsetManagement.currentBeatmapset == name) {
                 document.getElementsByClassName("settings")[0].style.pointerEvents = "none";
+                document.getElementsByClassName("settings")[0].style.opacity = "0.2";
             }
         });
 
@@ -119,7 +120,7 @@ var beatmapsetManagement = (function () {
 
     pub.switch = function(name) {
         // clear current information
-        //document.getElementById("beatmapinfo").innerHTML = "";
+        document.getElementById("beatmapinfo").innerHTML = "";
         //document.getElementById("probleminfo").innerHTML = "";
         //document.getElementById("problemtree").innerHTML = "";
         document.getElementById("diffs").innerHTML = "";
@@ -168,6 +169,7 @@ var beatmapsetManagement = (function () {
 
         // reset current settings values
         document.getElementsByClassName("settings")[0].style.pointerEvents = "auto";
+        document.getElementsByClassName("settings")[0].style.opacity = "1";
         beatmapsetManagement.currentBeatmapset = name;
 
         // add the info part to the info tab

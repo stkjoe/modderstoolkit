@@ -11,6 +11,7 @@ main {
 /* Style the tab */
 .tab {
     pointer-events: none;
+    opacity: 0.2;
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
@@ -68,6 +69,7 @@ main {
 
 .settings {
     pointer-events: none;
+    opacity: 0.2;
     height: 300px;
     width: 100%;
 }
