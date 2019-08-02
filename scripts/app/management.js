@@ -5,10 +5,6 @@ var beatmapsetManagement = (function () {
 
     pub.initload = function() {
     	if (sessionStorage.length != 0) {
-            document.getElementsByClassName("tab")[0].style.pointerEvents = "auto";
-            document.getElementsByClassName("tab")[0].style.opacity = "1";
-            document.getElementsByClassName("settings")[0].style.pointerEvents = "auto";
-            document.getElementsByClassName("settings")[0].style.opacity = "1";
     		Object.keys(sessionStorage).forEach(function(k){
     			var end = k.endsWith("info");
     			if (end === false) {
@@ -69,6 +65,11 @@ var beatmapsetManagement = (function () {
     };
 
     pub.add = function(name) {
+        // Make app clickable
+        document.getElementsByClassName("tab")[0].style.pointerEvents = "auto";
+        document.getElementsByClassName("tab")[0].style.opacity = "1";
+        document.getElementsByClassName("settings")[0].style.pointerEvents = "auto";
+        document.getElementsByClassName("settings")[0].style.opacity = "1";
         // Make new cell for beatmapset
         var target = document.getElementById("beatmapsets");
         var newCell = document.createElement("tr");
