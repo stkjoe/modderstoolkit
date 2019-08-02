@@ -1,4 +1,4 @@
-var beatmapsetManagement = (function () {
+var management = (function () {
     var pub = {};
 
     pub.currentBeatmapset = "";
@@ -9,7 +9,7 @@ var beatmapsetManagement = (function () {
     		Object.keys(sessionStorage).forEach(function(k){
     			var end = k.endsWith("info");
     			if (end === false) {
-    				beatmapsetManagement.add(k);
+    				management.add(k);
     			}
     		});
     	}
@@ -47,8 +47,8 @@ var beatmapsetManagement = (function () {
         }
         var customSnaps = {};
         var newInner = "";
-        var info = JSON.parse(sessionStorage.getItem(beatmapsetManagement.currentBeatmapset))["diffs"];
-        var settings = JSON.parse(sessionStorage.getItem(beatmapsetManagement.currentBeatmapset + "-info"));
+        var info = JSON.parse(sessionStorage.getItem(management.currentBeatmapset))["diffs"];
+        var settings = JSON.parse(sessionStorage.getItem(management.currentBeatmapset + "-info"));
         var hasSnaps = false;
         newInner += "<span class='treeroot treeroot-down'>" + "Custom Unsnaps" + "</span><ul class='nested activetree'>";
         Object.keys(info).forEach(function(l) {
@@ -105,13 +105,13 @@ var beatmapsetManagement = (function () {
                         treeproblem[j].style.textDecoration = "none";
                     }
                     this.style.textDecoration = "underline";
-                    var exists = sessionStorage.getItem(beatmapsetManagement.currentBeatmapset + "-info");
+                    var exists = sessionStorage.getItem(management.currentBeatmapset + "-info");
                     if (exists) {
                         document.getElementById("diffs").value = this.innerHTML;
                         document.getElementById("diffs").dispatchEvent(new CustomEvent("change"));
                     }
                     document.getElementById("probleminfo").innerHTML = customSnaps[this.innerHTML];
-                    beatmapsetManagement.currentSection = this.parentElement.parentElement.firstChild.innerHTML;
+                    management.currentSection = this.parentElement.parentElement.firstChild.innerHTML;
                 });
             }
         }
@@ -121,7 +121,7 @@ var beatmapsetManagement = (function () {
 
     pub.settingsChange = function() {
         var target = document.getElementById("diffs");
-        var settings = sessionStorage.getItem(beatmapsetManagement.currentBeatmapset + "-info");
+        var settings = sessionStorage.getItem(management.currentBeatmapset + "-info");
         settings = JSON.parse(settings);
         var detdiff = document.getElementById("diffsdetect").value;
         var snap3 = document.getElementById("snap3").value;
@@ -143,11 +143,11 @@ var beatmapsetManagement = (function () {
         settings[target.value]["diff"] = detdiff;
         settings[target.value]["snap3"] = snap3;
         settings[target.value]["snap4"] = snap4;
-        sessionStorage.setItem(beatmapsetManagement.currentBeatmapset + "-info", JSON.stringify(settings));
+        sessionStorage.setItem(management.currentBeatmapset + "-info", JSON.stringify(settings));
 
         // call customsnap for new settings
-        beatmapsetManagement.customSnap();
-        if (beatmapsetManagement.currentSection == "Custom Unsnaps") {
+        management.customSnap();
+        if (management.currentSection == "Custom Unsnaps") {
             document.getElementById("probleminfo").innerHTML = "";
         }
     };
@@ -171,11 +171,11 @@ var beatmapsetManagement = (function () {
                 cells[i].className = "";
             }
             newCell.className = "active"
-            beatmapsetManagement.switch(name);
+            management.switch(name);
         });
         target.lastChild.lastChild.addEventListener('click', function() {
             newCell.remove();
-            if (beatmapsetManagement.currentBeatmapset == name) {
+            if (management.currentBeatmapset == name) {
                 document.getElementsByClassName("settings")[0].style.pointerEvents = "none";
                 document.getElementsByClassName("settings")[0].style.opacity = "0.2";
             }
@@ -223,7 +223,7 @@ var beatmapsetManagement = (function () {
     };
 
     pub.switch = function(name) {
-        beatmapsetManagement.currentBeatmapset = name;
+        management.currentBeatmapset = name;
         // clear current information
         document.getElementById("beatmapinfo").innerHTML = "";
         document.getElementById("probleminfo").innerHTML = "";
@@ -334,10 +334,10 @@ var beatmapsetManagement = (function () {
                 }
                 var target = document.getElementById("probleminfo");
                 target.innerHTML = info;
-                beatmapsetManagement.currentSection = first_root;
+                management.currentSection = first_root;
             });
         }
-        beatmapsetManagement.customSnap();
+        management.customSnap();
         // Then call treeview to make it interactive
         treeview();
 
@@ -353,7 +353,7 @@ var beatmapsetManagement = (function () {
 }());
 
 if (window.addEventListener) {
-    window.addEventListener('load', beatmapsetManagement.initload);
+    window.addEventListener('load', management.initload);
 } else if (window.attachEvent) {
-    window.attachEvent('onload', beatmapsetManagement.initload);
+    window.attachEvent('onload', management.initload);
 }
