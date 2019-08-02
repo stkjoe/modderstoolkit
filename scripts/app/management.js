@@ -137,7 +137,7 @@ var beatmapsetManagement = (function () {
         // clear current information
         document.getElementById("beatmapinfo").innerHTML = "";
         document.getElementById("probleminfo").innerHTML = "";
-        //document.getElementById("problemtree").innerHTML = "";
+        document.getElementById("problemtree").innerHTML = "";
         document.getElementById("diffs").innerHTML = "";
 
         // get clicked beatmapset
@@ -197,7 +197,7 @@ var beatmapsetManagement = (function () {
             Object.keys(report[k]).forEach(function(l) {
                 newInner += "<li><span class='treeroot treeroot-down'>" + l + "</span><ul class='nested activetree'>";
                 Object.keys(report[k][l]).forEach(function(m){
-                    newInner += "<li>" + m + "</li>";
+                    newInner += "<li class='treeproblem'>" + m + "</li>";
                 });
                 newInner += "</ul></li>"
             });
@@ -205,7 +205,31 @@ var beatmapsetManagement = (function () {
         });
         root.innerHTML = newInner;
         // Attach events to treeview Elements
+        var problems = document.getElementsByClassName("treeproblem");
+        for(var i = 0; i < problems.length; i++) {
+            problems[i].addEventListener("click", function() {
+                // Identify roots
+                var first_root = this.parentElement.parentElement.parentElement.parentElement.firstChild.innerHTML;
+                var second_root = this.parentElement.parentElement.firstChild.innerHTML;
+                // Find information from sessionStorage
+                var info_arr = returnedJSON["report"][first_root][second_root][this.innerHTML];
+                var info = ""
+                for (j = 0; j < info_arr.length; j++) {
+                    var info_part = "<span>" + info_arr[j] + "</span>";
+                    // check if there is a timestamp. If so, format so it's osu Clickable
+                    // note: there should not be more than one timestamp per array slot
+                    var tspos = info_part.search(/([0-9]{2}:[0-9]{2}:[0-9]{3} -)/);
+                    if (tspos != -1) {
+                        var timestamp = info_part.slice(tspos, tspos+11);
+                        info_part = info_part.replace(timestamp, "<a href='osu://edit/" + timestamp.slice(0, timestamp.length - 2) + "'>" + timestamp + "</a>");
+                    }
 
+                    info += info_part;
+                }
+                var target = document.getElementById("probleminfo");
+                target.innerHTML = info;
+            });
+        }
 
         // Then call treeview to make it interactive
         treeview();

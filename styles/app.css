@@ -173,6 +173,14 @@ ul, #problemtree {
   display: block;
 }
 
+.treeproblem {
+    cursor: pointer;
+}
+
+#probleminfo span a{
+    color: green;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
