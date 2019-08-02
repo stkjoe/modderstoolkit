@@ -208,6 +208,11 @@ var beatmapsetManagement = (function () {
         var problems = document.getElementsByClassName("treeproblem");
         for(var i = 0; i < problems.length; i++) {
             problems[i].addEventListener("click", function() {
+                // make all other ones unhighlighted
+                for (var j = 0; j < problems.length; j++) {
+                    problems[j].style.textDecoration = "none";
+                }
+                this.style.textDecoration = "underline";
                 // Identify roots
                 var first_root = this.parentElement.parentElement.parentElement.parentElement.firstChild.innerHTML;
                 var second_root = this.parentElement.parentElement.firstChild.innerHTML;

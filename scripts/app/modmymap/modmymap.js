@@ -4,6 +4,7 @@ function modMyMap(file) {
     zip.loadAsync(file)
     .then(function(zip) {});
     // .osz extracted. Begin work.
+    console.log(zip.files);
 
 
 
