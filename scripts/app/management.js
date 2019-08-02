@@ -3,6 +3,21 @@ var beatmapsetManagement = (function () {
 
     pub.currentBeatmapset = "";
 
+    pub.initload = function() {
+    	if (sessionStorage.length != 0) {
+            document.getElementsByClassName("tab")[0].style.pointerEvents = "auto";
+            document.getElementsByClassName("tab")[0].style.opacity = "1";
+            document.getElementsByClassName("settings")[0].style.pointerEvents = "auto";
+            document.getElementsByClassName("settings")[0].style.opacity = "1";
+    		Object.keys(sessionStorage).forEach(function(k){
+    			var end = k.endsWith("info");
+    			if (end === false) {
+    				beatmapsetManagement.add(k);
+    			}
+    		});
+    	}
+    };
+
     pub.sliderChange = function(value) {
         var target = document.getElementById(value + "label");
         var snap = document.getElementById(value).value;
@@ -75,6 +90,9 @@ var beatmapsetManagement = (function () {
                 document.getElementsByClassName("settings")[0].style.pointerEvents = "none";
                 document.getElementsByClassName("settings")[0].style.opacity = "0.2";
             }
+            // remove from sessionStorage
+            sessionStorage.removeItem(name);
+            sessionStorage.removeItem(name + "-info");
         });
 
         // Create a new info sessionstorage file to keep track of snapping settings
@@ -107,7 +125,7 @@ var beatmapsetManagement = (function () {
         sessionStorage.setItem(name + "-info", settings);
 
         // reset cell colours
-        cells = document.getElementById("beatmapsets").getElementsByTagName("tr");
+        var cells = document.getElementById("beatmapsets").getElementsByTagName("tr");
         for (i = 0; i < cells.length; i++) {
             cells[i].className = "";
         }
@@ -188,6 +206,7 @@ var beatmapsetManagement = (function () {
         root.innerHTML = newInner;
         // Attach events to treeview Elements
 
+
         // Then call treeview to make it interactive
         treeview();
 
@@ -199,3 +218,9 @@ var beatmapsetManagement = (function () {
 
     return pub;
 }());
+
+if (window.addEventListener) {
+    window.addEventListener('load', beatmapsetManagement.initload);
+} else if (window.attachEvent) {
+    window.attachEvent('onload', beatmapsetManagement.initload);
+}

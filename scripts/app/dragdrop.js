@@ -10,8 +10,12 @@ function dropHandler(ev) {
 				if (file.name.endsWith(".osz")) {
 					// File is a .osz file. Continue onwards.
 					var returnedJSON = modMyMap(file);
-					sessionStorage.setItem(file.name, returnedJSON);
-					beatmapsetManagement.add(file.name);
+					if (sessionStorage.getItem(file.name) === null) {
+						sessionStorage.setItem(file.name, returnedJSON);
+						beatmapsetManagement.add(file.name);
+					} else {
+						sessionStorage.setItem(file.name, returnedJSON);
+					}
 				}
 			}
 		}
