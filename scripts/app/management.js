@@ -234,6 +234,9 @@ var beatmapsetManagement = (function () {
         // Then call treeview to make it interactive
         treeview();
 
+        // Switch to warnings tab
+        changeTab(event, 'Warnings');
+
         // reset current settings values
         document.getElementsByClassName("settings")[0].style.pointerEvents = "auto";
         document.getElementsByClassName("settings")[0].style.opacity = "1";
