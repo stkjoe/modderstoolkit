@@ -2,6 +2,7 @@ var beatmapsetManagement = (function () {
     var pub = {};
 
     pub.currentBeatmapset = "";
+    pub.currentSection = "";
 
     pub.initload = function() {
     	if (sessionStorage.length != 0) {
@@ -37,6 +38,87 @@ var beatmapsetManagement = (function () {
         target.innerHTML = "1/" + snap.toString();
     };
 
+    pub.customSnap = function () {
+        var target = document.getElementById("problemtree");
+        var root = document.createElement("li");
+        // if there exists already custom snaps, remove that node
+        if (target.lastChild.firstChild.innerHTML == "Custom Unsnaps") {
+            target.removeChild(target.lastChild);
+        }
+        var customSnaps = {};
+        var newInner = "";
+        var info = JSON.parse(sessionStorage.getItem(beatmapsetManagement.currentBeatmapset))["diffs"];
+        var settings = JSON.parse(sessionStorage.getItem(beatmapsetManagement.currentBeatmapset + "-info"));
+        var hasSnaps = false;
+        newInner += "<span class='treeroot treeroot-down'>" + "Custom Unsnaps" + "</span><ul class='nested activetree'>";
+        Object.keys(info).forEach(function(l) {
+            var hasDiffSnaps = false;
+            var diffInner = "";
+            var snaps3 = [];
+            var snaps4 = [];
+            for (var i = 3; i <= 12; i*=2) {
+                if (settings[l]["snap3"] < i) {
+                    snaps3.push(i.toString())
+                }
+            }
+            for (var i = 2; i <= 16; i*=2) {
+                if (settings[l]["snap4"] < i) {
+                    snaps4.push(i.toString())
+                }
+            }
+            Object.keys(info[l]["snaps"]).forEach(function(m){
+                var snap3 = snaps3.includes(m);
+                var snap4 = snaps4.includes(m);
+                if (snap3 || snap4){
+                    hasDiffSnaps = true;
+                    var info_arr = info[l]["snaps"][m];
+                    for (var j = 0; j < info_arr.length; j++) {
+                        var info_part = "<span>" + info_arr[j] + "</span>";
+                        // check if there is a timestamp. If so, format so it's osu Clickable
+                        // note: there should not be more than one timestamp per array slot
+                        var tspos = info_part.search(/([0-9]{2}:[0-9]{2}:[0-9]{3} -)/);
+                        if (tspos != -1) {
+                            var timestamp = info_part.slice(tspos, tspos+11);
+                            info_part = info_part.replace(timestamp, "<a href='osu://edit/" + timestamp.slice(0, timestamp.length - 2) + "'>" + timestamp + "</a>");
+                        }
+                        diffInner += info_part;
+                    }
+                }
+            });
+            if (hasDiffSnaps) {
+                newInner += "<li class='treeproblem'>" + l + "</li>";
+                hasSnaps = true;
+                customSnaps[l] = diffInner;
+            }
+
+        });
+        newInner += "</ul>";
+        root.innerHTML = newInner;
+        if (hasSnaps) {
+            target.appendChild(root)
+            // Then go through each node to assign info click event
+            var snapProbs = target.lastChild.lastChild.getElementsByClassName("treeproblem");
+            for (var i = 0; i < snapProbs.length; i++) {
+                snapProbs[i].addEventListener("click", function() {
+                    var treeproblem = document.getElementsByClassName("treeproblem");
+                    for (var j = 0; j < treeproblem.length; j++) {
+                        treeproblem[j].style.textDecoration = "none";
+                    }
+                    this.style.textDecoration = "underline";
+                    var exists = sessionStorage.getItem(beatmapsetManagement.currentBeatmapset + "-info");
+                    if (exists) {
+                        document.getElementById("diffs").value = this.innerHTML;
+                        document.getElementById("diffs").dispatchEvent(new CustomEvent("change"));
+                    }
+                    document.getElementById("probleminfo").innerHTML = customSnaps[this.innerHTML];
+                    beatmapsetManagement.currentSection = this.parentElement.parentElement.firstChild.innerHTML;
+                });
+            }
+        }
+
+
+    };
+
     pub.settingsChange = function() {
         var target = document.getElementById("diffs");
         var settings = sessionStorage.getItem(beatmapsetManagement.currentBeatmapset + "-info");
@@ -62,6 +144,12 @@ var beatmapsetManagement = (function () {
         settings[target.value]["snap3"] = snap3;
         settings[target.value]["snap4"] = snap4;
         sessionStorage.setItem(beatmapsetManagement.currentBeatmapset + "-info", JSON.stringify(settings));
+
+        // call customsnap for new settings
+        beatmapsetManagement.customSnap();
+        if (beatmapsetManagement.currentSection == "Custom Unsnaps") {
+            document.getElementById("probleminfo").innerHTML = "";
+        }
     };
 
     pub.add = function(name) {
@@ -135,6 +223,7 @@ var beatmapsetManagement = (function () {
     };
 
     pub.switch = function(name) {
+        beatmapsetManagement.currentBeatmapset = name;
         // clear current information
         document.getElementById("beatmapinfo").innerHTML = "";
         document.getElementById("probleminfo").innerHTML = "";
@@ -153,6 +242,10 @@ var beatmapsetManagement = (function () {
         });
         target.addEventListener("change", function() {
             // Grab settings from sessionStorage
+            var settings = sessionStorage.getItem(name + "-info");
+            if (settings === null) {
+                return;
+            }
             var settings = JSON.parse(sessionStorage.getItem(name + "-info"))[target.value];
             document.getElementById("diffsdetect").value = settings["diff"];
             var snap4 = settings["snap4"];
@@ -184,6 +277,7 @@ var beatmapsetManagement = (function () {
                 info_str = info_str + ("<span>" + k + ": " + info[k] + "</span>");
             });
             document.getElementById("beatmapinfo").innerHTML = info_str;
+
         });
         // Change to hardest diff and evoke change
         target.selectedIndex = target.length - 1;
@@ -209,9 +303,15 @@ var beatmapsetManagement = (function () {
         var problems = document.getElementsByClassName("treeproblem");
         for(var i = 0; i < problems.length; i++) {
             problems[i].addEventListener("click", function() {
+                // change diff settings interface to new diff, if any.
+                if (this.parentElement.parentElement.firstChild.innerHTML != "General") {
+                    document.getElementById("diffs").value = this.parentElement.parentElement.firstChild.innerHTML;
+                    document.getElementById("diffs").dispatchEvent(new CustomEvent("change"));
+                }
                 // make all other ones unhighlighted
-                for (var j = 0; j < problems.length; j++) {
-                    problems[j].style.textDecoration = "none";
+                var treeproblem = document.getElementsByClassName("treeproblem");
+                for (var j = 0; j < treeproblem.length; j++) {
+                    treeproblem[j].style.textDecoration = "none";
                 }
                 this.style.textDecoration = "underline";
                 // Identify roots
@@ -234,9 +334,10 @@ var beatmapsetManagement = (function () {
                 }
                 var target = document.getElementById("probleminfo");
                 target.innerHTML = info;
+                beatmapsetManagement.currentSection = first_root;
             });
         }
-
+        beatmapsetManagement.customSnap();
         // Then call treeview to make it interactive
         treeview();
 
@@ -246,7 +347,6 @@ var beatmapsetManagement = (function () {
         // reset current settings values
         document.getElementsByClassName("settings")[0].style.pointerEvents = "auto";
         document.getElementsByClassName("settings")[0].style.opacity = "1";
-        beatmapsetManagement.currentBeatmapset = name;
     };
 
     return pub;
