@@ -118,7 +118,7 @@ var beatmapsetManagement = (function () {
     pub.switch = function(name) {
         // clear current information
         document.getElementById("beatmapinfo").innerHTML = "";
-        //document.getElementById("probleminfo").innerHTML = "";
+        document.getElementById("probleminfo").innerHTML = "";
         //document.getElementById("problemtree").innerHTML = "";
         document.getElementById("diffs").innerHTML = "";
 
@@ -169,6 +169,27 @@ var beatmapsetManagement = (function () {
         // Change to hardest diff and evoke change
         target.selectedIndex = target.length - 1;
         target.dispatchEvent(new CustomEvent("change"));
+
+        // Populate treeview
+        var report = JSON.parse(sessionStorage.getItem(name))["report"];
+        var root = document.getElementById("problemtree");
+        var newInner = "";
+        Object.keys(report).forEach(function(k){
+            newInner += "<li><span class='treeroot treeroot-down'>" + k + "</span><ul class='nested activetree'>";
+            Object.keys(report[k]).forEach(function(l) {
+                newInner += "<li><span class='treeroot treeroot-down'>" + l + "</span><ul class='nested activetree'>";
+                Object.keys(report[k][l]).forEach(function(m){
+                    newInner += "<li>" + m + "</li>";
+                });
+                newInner += "</ul></li>"
+            });
+            newInner += "</ul></li>";
+        });
+        root.innerHTML = newInner;
+        // Attach events to treeview Elements
+
+        // Then call treeview to make it interactive
+        treeview();
 
         // reset current settings values
         document.getElementsByClassName("settings")[0].style.pointerEvents = "auto";

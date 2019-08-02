@@ -9,9 +9,3 @@ function treeview() {
         });
     }
 }
-
-if (window.addEventListener) {
-    window.addEventListener('load', treeview);
-} else if (window.attachEvent) {
-    window.attachEvent('onload', treeview);
-}
